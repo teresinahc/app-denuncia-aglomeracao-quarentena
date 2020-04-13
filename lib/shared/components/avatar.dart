@@ -8,6 +8,7 @@ class Avatar extends StatelessWidget {
   final Function onRemovePressed;
   final bool isEditable;
   final Function onEditPressed;
+  final Function onTap;
   final Widget placeHolder;
 
   const Avatar(
@@ -16,6 +17,7 @@ class Avatar extends StatelessWidget {
       @required this.image,
       this.isRemoveble: false,
       this.onRemovePressed,
+      this.onTap,
       this.isEditable: false,
       this.onEditPressed,
       this.placeHolder: const Center(child: CircularProgressIndicator())})
@@ -26,6 +28,13 @@ class Avatar extends StatelessWidget {
       children: <Widget>[
         Container(
           decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                    color: Color.fromRGBO(0, 0, 0, 0.25),
+                    blurRadius: 4,
+                    offset: Offset(0, 4))
+              ],
               borderRadius: BorderRadius.circular(radius),
               border:
                   Border.all(color: Theme.of(context).primaryColor, width: 1)),
@@ -34,7 +43,7 @@ class Avatar extends StatelessWidget {
               child: ImageFade(
                 width: radius * 2,
                 height: radius * 2,
-                fit: BoxFit.fitWidth,
+                fit: BoxFit.cover,
                 image: image,
                 placeholder: placeHolder,
               )),
@@ -87,7 +96,26 @@ class Avatar extends StatelessWidget {
             : Container(
                 width: 1,
                 height: 1,
+              ),
+        (onTap != null)
+            ? Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(radius),
+                  onTap: onTap,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(radius)),
+                    width: radius * 2 + 2,
+                    height: radius * 2 + 2,
+                  ),
+                ),
               )
+            : Container(
+                width: 1,
+                height: 1,
+              ),
       ],
     );
   }
