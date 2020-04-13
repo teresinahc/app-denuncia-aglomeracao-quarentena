@@ -72,4 +72,9 @@ abstract class _HomeControllerBase with Store {
     _denuncias = temp.asObservable();
     stateLoadDenuncias = RequestState.SUCCESS;
   }
+
+  @action
+  insertDenuncia(Denuncia denuncia) {
+    _denuncias.add(denuncia);
+  }
 }

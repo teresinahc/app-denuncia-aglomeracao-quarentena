@@ -67,6 +67,16 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   @override
+  dynamic insertDenuncia(Denuncia denuncia) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction();
+    try {
+      return super.insertDenuncia(denuncia);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     final string =
         'stateLoadDenuncias: ${stateLoadDenuncias.toString()},denunciasAgrouped: ${denunciasAgrouped.toString()}';

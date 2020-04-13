@@ -1,7 +1,9 @@
 import 'package:covid_alert/screens/home/components/denuncia_tile.dart';
 import 'package:covid_alert/screens/home/components/screen_with_time_indicator.dart';
 import 'package:covid_alert/screens/home/controllers/home_controller.dart';
+import 'package:covid_alert/screens/new_denuncia/new_denuncia_screen.dart';
 import 'package:covid_alert/shared/enums/request_state_enum.dart';
+import 'package:covid_alert/shared/models/denuncia.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
@@ -30,7 +32,11 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () async {
+          Denuncia newDenuncia = await Navigator.push(context,
+              MaterialPageRoute(builder: (context) => NewDenunciaScreen()));
+          if (newDenuncia != null) _homeController.insertDenuncia(newDenuncia);
+        },
         child: Icon(Icons.add),
         tooltip: "Fazer denúncia",
         backgroundColor: Theme.of(context).primaryColor,
@@ -58,7 +64,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: MediaQuery.of(context).size.height,
                       width: MediaQuery.of(context).size.width,
                       child: Stack(
-                        // mainAxisAlignment: MainAxisAlignment.center,
                         alignment: Alignment.center,
                         children: <Widget>[
                           Text(
