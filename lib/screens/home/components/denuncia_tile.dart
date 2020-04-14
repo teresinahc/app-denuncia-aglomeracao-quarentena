@@ -1,3 +1,4 @@
+import 'package:covid_alert/screens/denuncia_details/denuncia_details_screen.dart';
 import 'package:covid_alert/shared/models/denuncia.dart';
 import 'package:covid_alert/shared/utils/parse_horary.dart';
 import 'package:flutter/material.dart';
@@ -24,14 +25,22 @@ class DenunciaTile extends StatelessWidget {
         Expanded(
           child: Card(
             elevation: 5,
-            child: Container(
-              padding: EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  renderField("Endereço", denuncia.address),
-                  renderField("Tipo de evento", denuncia.event),
-                ],
+            child: InkWell(
+              borderRadius: BorderRadius.circular(4),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => DenunciaDetails(denuncia: denuncia),
+                ));
+              },
+              child: Container(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    renderField("Endereço", denuncia.address),
+                    renderField("Tipo de evento", denuncia.event),
+                  ],
+                ),
               ),
             ),
           ),
