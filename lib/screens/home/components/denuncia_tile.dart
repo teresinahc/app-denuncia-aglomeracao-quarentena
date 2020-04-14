@@ -23,23 +23,52 @@ class DenunciaTile extends StatelessWidget {
           width: 5,
         ),
         Expanded(
-          child: Card(
-            elevation: 5,
-            child: InkWell(
-              borderRadius: BorderRadius.circular(4),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => DenunciaDetails(denuncia: denuncia),
-                ));
-              },
-              child: Container(
-                padding: EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    renderField("Endereço", denuncia.address),
-                    renderField("Tipo de evento", denuncia.event),
-                  ],
+          child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [
+                  BoxShadow(
+                      color: Color.fromRGBO(0, 0, 0, 0.25),
+                      blurRadius: 10,
+                      offset: Offset(2, 3))
+                ]),
+            child: Material(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(15),
+              child: InkWell(
+                borderRadius: BorderRadius.circular(15),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            DenunciaDetails(denuncia: denuncia),
+                      ));
+                },
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            renderField(
+                                title: "Endereço", content: denuncia.address),
+                            renderField(
+                                title: "Categoria",
+                                content: denuncia.event,
+                                contentIsBold: true,
+                                colorContent: Colors.red),
+                          ],
+                        ),
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        size: 14,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -49,15 +78,26 @@ class DenunciaTile extends StatelessWidget {
     );
   }
 
-  renderField(String title, String content) {
+  renderField(
+      {String title,
+      String content,
+      Color colorContent,
+      contentIsBold: false}) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
           "$title: ",
-          style: TextStyle(fontWeight: FontWeight.w600),
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
         ),
-        Expanded(child: Text(content)),
+        Expanded(
+            child: Text(
+          content,
+          style: TextStyle(
+              color: colorContent,
+              fontSize: 13,
+              fontWeight: contentIsBold ? FontWeight.bold : null),
+        )),
       ],
     );
   }

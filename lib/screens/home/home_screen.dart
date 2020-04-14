@@ -2,6 +2,7 @@ import 'package:covid_alert/screens/home/components/denuncia_tile.dart';
 import 'package:covid_alert/screens/home/components/screen_with_time_indicator.dart';
 import 'package:covid_alert/screens/home/controllers/home_controller.dart';
 import 'package:covid_alert/screens/new_denuncia/new_denuncia_screen.dart';
+import 'package:covid_alert/shared/components/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
@@ -16,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _homeController = GetIt.I.get<HomeController>();
+  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   ReactionDisposer _disposer;
 
   @override
@@ -55,10 +57,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Covid Alert"),
-        centerTitle: true,
-      ),
+      key: _key,
+      appBar: appBar(
+          title: "Denúncias",
+          leading: Leading.DRAWER,
+          onLeadingPress: () {
+            _key.currentState.openDrawer();
+          }),
+      drawer: Drawer(),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           Navigator.push(context,
