@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'package:covid_alert/shared/components/avatar.dart';
 import 'package:covid_alert/shared/components/custom_text_form_field.dart';
+import 'package:covid_alert/shared/enums/request_state_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:covid_alert/shared/themes/extensions.dart';
@@ -14,7 +16,7 @@ class NewDenunciaScreen extends StatefulWidget {
 
 class _NewDenunciaScreenState extends State<NewDenunciaScreen> {
   final _newDenunciaController = GetIt.I.get<NewDenunciaController>();
-  final List images = [];
+  final List<File> images = [];
 
   @override
   void initState() {
@@ -63,22 +65,7 @@ class _NewDenunciaScreenState extends State<NewDenunciaScreen> {
                   _labelSection("Imagens da denúcia (Uma ou mais imagens)"),
                   _imagensField(),
                   _buildDivider(h: 32),
-                  Observer(
-                    builder: (_) {
-                      return RaisedButton(
-                              color: Theme.of(context).primaryColor,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(60)),
-                              child: Text("FAZER DENÚNCIA"),
-                              onPressed: _newDenunciaController.isValid
-                                  ? () {
-                                      Navigator.pop(context,
-                                          _newDenunciaController.denuncia);
-                                    }
-                                  : null)
-                          .asDls(context);
-                    },
-                  ),
+                  _button(),
                 ],
               ),
             ),
@@ -145,7 +132,20 @@ class _NewDenunciaScreenState extends State<NewDenunciaScreen> {
                           firstDate: DateTime(2020),
                           lastDate: DateTime(2050))
                       .then((newDate) {
-                    _newDenunciaController.setDate(newDate ?? selectedDate);
+                    showTimePicker(
+                            context: context,
+                            initialTime: TimeOfDay.fromDateTime(selectedDate))
+                        .then((time) {
+                      _newDenunciaController.setDate(newDate ?? selectedDate);
+
+                      if (time == null)
+                        _newDenunciaController.setDate(selectedDate);
+                      else {
+                        DateTime aux = DateTime(newDate.year, newDate.month,
+                            newDate.day, time.hour, time.minute);
+                        _newDenunciaController.setDate(aux);
+                      }
+                    });
                   });
                 },
               )
@@ -221,10 +221,11 @@ class _NewDenunciaScreenState extends State<NewDenunciaScreen> {
                   Navigator.pop(context);
                   var _image = await ImagePicker.pickImage(
                       source: ImageSource.camera, imageQuality: 50);
-                  if (_image != null)
+                  if (_image != null) {
                     setState(() {
                       images.add(_image);
                     });
+                  }
                 },
                 title: Text(
                   "Tirar uma foto",
@@ -251,6 +252,28 @@ class _NewDenunciaScreenState extends State<NewDenunciaScreen> {
             ],
           ),
         );
+      },
+    );
+  }
+
+  _button() {
+    return Observer(
+      builder: (_) {
+        return _newDenunciaController.stateSave == RequestState.LOADING
+            ? Center(child: CircularProgressIndicator())
+            : RaisedButton(
+                    color: Theme.of(context).primaryColor,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(60)),
+                    child: Text("FAZER DENÚNCIA"),
+                    onPressed: _newDenunciaController.isValid
+                        ? () async {
+                            await _newDenunciaController.saveDenuncia(
+                                images: images);
+                            Navigator.pop(context);
+                          }
+                        : null)
+                .asDls(context);
       },
     );
   }

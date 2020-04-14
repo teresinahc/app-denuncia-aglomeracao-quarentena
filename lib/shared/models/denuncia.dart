@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Denuncia {
   String title;
   String description;
@@ -13,6 +15,15 @@ class Denuncia {
       this.address,
       this.imagesUrls,
       this.event});
+
+  Denuncia.fromDocument(DocumentSnapshot doc) {
+    title = doc['title'];
+    description = doc['description'];
+    dateTime = (doc['dateTime'] as Timestamp).toDate();
+    address = doc['address'];
+    imagesUrls = doc['imagesUrls']?.cast<String>() ?? [];
+    event = doc['event'];
+  }
 
   Denuncia.fromJson(Map<String, dynamic> json) {
     title = json["title"];
