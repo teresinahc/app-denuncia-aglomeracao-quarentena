@@ -32,6 +32,31 @@ mixin _$NewDenunciaController on _NewDenunciaControllerBase, Store {
     }, _$denunciaAtom, name: '${_$denunciaAtom.name}_set');
   }
 
+  final _$stateSaveAtom = Atom(name: '_NewDenunciaControllerBase.stateSave');
+
+  @override
+  RequestState get stateSave {
+    _$stateSaveAtom.context.enforceReadPolicy(_$stateSaveAtom);
+    _$stateSaveAtom.reportObserved();
+    return super.stateSave;
+  }
+
+  @override
+  set stateSave(RequestState value) {
+    _$stateSaveAtom.context.conditionallyRunInAction(() {
+      super.stateSave = value;
+      _$stateSaveAtom.reportChanged();
+    }, _$stateSaveAtom, name: '${_$stateSaveAtom.name}_set');
+  }
+
+  final _$saveDenunciaAsyncAction = AsyncAction('saveDenuncia');
+
+  @override
+  Future saveDenuncia({List<File> images}) {
+    return _$saveDenunciaAsyncAction
+        .run(() => super.saveDenuncia(images: images));
+  }
+
   final _$_NewDenunciaControllerBaseActionController =
       ActionController(name: '_NewDenunciaControllerBase');
 
@@ -115,7 +140,7 @@ mixin _$NewDenunciaController on _NewDenunciaControllerBase, Store {
   @override
   String toString() {
     final string =
-        'denuncia: ${denuncia.toString()},isValid: ${isValid.toString()}';
+        'denuncia: ${denuncia.toString()},stateSave: ${stateSave.toString()},isValid: ${isValid.toString()}';
     return '{$string}';
   }
 }

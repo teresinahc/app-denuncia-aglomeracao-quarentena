@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "535064114015",
+    "firebase_url": "https://covid19-alert-3960e.firebaseio.com",
+    "project_id": "covid19-alert-3960e",
+    "storage_bucket": "covid19-alert-3960e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:535064114015:android:f0a5509d37de3375507cea",
+        "android_client_info": {
+          "package_name": "com.thc.covid_alert"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "535064114015-e4a4ej49n26rbmd22hnmb7r9g5hohn8q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSBB-3WwQS1BgKB_8ED_-CL_2_0oQKneQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "535064114015-e4a4ej49n26rbmd22hnmb7r9g5hohn8q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,3 +1,4 @@
+import 'package:covid_alert/shared/service/repository.dart';
 import 'package:covid_alert/shared/themes/theme_default.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -7,12 +8,23 @@ import 'screens/home/home_screen.dart';
 import 'screens/new_denuncia/controllers/new_denuncia_controller.dart';
 
 void main() {
-  GetIt.I.registerSingleton<HomeController>(HomeController());
-  GetIt.I.registerSingleton<NewDenunciaController>(NewDenunciaController());
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    GetIt.I.registerSingleton<Repository>(Repository());
+    GetIt.I.registerSingleton<HomeController>(HomeController());
+    GetIt.I.registerSingleton<NewDenunciaController>(NewDenunciaController());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
