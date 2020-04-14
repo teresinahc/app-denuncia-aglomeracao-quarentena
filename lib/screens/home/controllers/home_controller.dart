@@ -1,24 +1,32 @@
 import 'package:covid_alert/shared/enums/request_state_enum.dart';
 import 'package:covid_alert/shared/models/denuncia.dart';
+import 'package:covid_alert/shared/service/repository.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 part 'home_controller.g.dart';
 
 class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store {
+  final _repository = GetIt.I.get<Repository>();
+
   @observable
-  ObservableList<Denuncia> _denuncias = ObservableList<Denuncia>();
+  ObservableStream<List<Denuncia>> denuncias;
 
   @observable
   RequestState stateLoadDenuncias;
 
-  List<Denuncia> get listaDenuncias => _denuncias.toList();
+  @computed
+  List<Denuncia> get listaDenuncias => denuncias.hasError ? [] : denuncias.data;
 
   @computed
   Map<DateTime, List<Denuncia>> get denunciasAgrouped {
     final Map<DateTime, List<Denuncia>> _result =
         Map<DateTime, List<Denuncia>>();
-    _denuncias.forEach((Denuncia d) {
+
+    if (listaDenuncias == null || listaDenuncias.isEmpty) return _result;
+
+    listaDenuncias.forEach((Denuncia d) {
       DateTime _atualDate =
           DateTime(d.dateTime.year, d.dateTime.month, d.dateTime.day);
 
@@ -41,44 +49,11 @@ abstract class _HomeControllerBase with Store {
     return _sortedMap;
   }
 
-  /// Function for testing with simulated data
   @action
   initialize() {
-    stateLoadDenuncias = RequestState.LOADING;
-    final temp = List.generate(
-            5,
-            (index) => Denuncia.fromJson({
-                  "dateTime": 1586720580000000,
-                  "address": "Rua do Bobo nº 123",
-                  "imagesUrls": [
-                    "https://www.revistaplaneta.com.br/wp-content/uploads/sites/3/2018/06/12_pl540_unesco1-696x392.jpg",
-                    "https://www.revistaplaneta.com.br/wp-content/uploads/sites/3/2018/06/12_pl540_unesco1-696x392.jpg",
-                    "https://www.revistaplaneta.com.br/wp-content/uploads/sites/3/2018/06/12_pl540_unesco1-696x392.jpg",
-                    "https://www.revistaplaneta.com.br/wp-content/uploads/sites/3/2018/06/12_pl540_unesco1-696x392.jpg",
-                    "https://www.revistaplaneta.com.br/wp-content/uploads/sites/3/2018/06/12_pl540_unesco1-696x392.jpg",
-                  ],
-                  "event": "Festa"
-                })) +
-        List.generate(
-            5,
-            (index) => Denuncia.fromJson({
-                  "dateTime": 1585720580000000,
-                  "address": "Rua do Bobo nº 123",
-                  "imagesUrls": [
-                    "https://www.revistaplaneta.com.br/wp-content/uploads/sites/3/2018/06/12_pl540_unesco1-696x392.jpg",
-                    "https://www.revistaplaneta.com.br/wp-content/uploads/sites/3/2018/06/12_pl540_unesco1-696x392.jpg",
-                    "https://www.revistaplaneta.com.br/wp-content/uploads/sites/3/2018/06/12_pl540_unesco1-696x392.jpg",
-                    "https://www.revistaplaneta.com.br/wp-content/uploads/sites/3/2018/06/12_pl540_unesco1-696x392.jpg",
-                    "https://www.revistaplaneta.com.br/wp-content/uploads/sites/3/2018/06/12_pl540_unesco1-696x392.jpg",
-                  ],
-                  "event": "Festa"
-                }));
-    _denuncias = temp.asObservable();
-    stateLoadDenuncias = RequestState.SUCCESS;
+    denuncias = _repository.getDenuncias().asObservable();
   }
 
   @action
-  insertDenuncia(Denuncia denuncia) {
-    _denuncias.add(denuncia);
-  }
+  insertDenuncia(Denuncia denuncia) {}
 }
