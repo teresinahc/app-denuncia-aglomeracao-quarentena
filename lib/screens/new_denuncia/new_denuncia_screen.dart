@@ -3,6 +3,8 @@ import 'package:covid_alert/shared/components/app_bar.dart';
 import 'package:covid_alert/shared/components/avatar.dart';
 import 'package:covid_alert/shared/components/custom_text_form_field.dart';
 import 'package:covid_alert/shared/enums/request_state_enum.dart';
+import 'package:covid_alert/shared/utils/parse_date.dart';
+import 'package:covid_alert/shared/utils/parse_horary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:covid_alert/shared/themes/extensions.dart';
@@ -38,35 +40,37 @@ class _NewDenunciaScreenState extends State<NewDenunciaScreen> {
         height: MediaQuery.of(context).size.height,
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding:
+                const EdgeInsets.only(top: 42, left: 17, right: 17, bottom: 29),
             child: Form(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  _labelSection("Dados da denúncia"),
                   _field(
-                      fieldName: "Título (Opcional)",
+                      fieldName: "Título (opcional)",
                       onChanged: (str) {
                         _newDenunciaController.setTitle(str);
                       }),
+                  _field(
+                      fieldName: "Descrição (opcional)",
+                      onChanged: (str) {
+                        _newDenunciaController.setDescription(str);
+                      }),
+                  _categoryField(onChanged: (value) {
+                    _newDenunciaController.setEvent(value);
+                  }),
                   _field(
                       fieldName: "Endereço",
                       onChanged: (str) {
                         _newDenunciaController.setAddress(str);
                       }),
-                  _field(
-                      fieldName: "Tipo de acontecimento",
-                      onChanged: (str) {
-                        _newDenunciaController.setEvent(str);
-                      }),
-                  _field(
-                      fieldName: "Descrição (Opcional)",
-                      onChanged: (str) {
-                        _newDenunciaController.setDescription(str);
-                      }),
                   _dateField(),
-                  _buildDivider(),
-                  _labelSection("Imagens da denúcia (Uma ou mais imagens)"),
+                  _buildDivider(h: 23),
+                  Divider(
+                    height: 1,
+                    color: Color(0xFFD9D9D9),
+                  ),
+                  _buildDivider(h: 28),
                   _imagensField(),
                   _buildDivider(h: 32),
                   _button(),
@@ -85,20 +89,45 @@ class _NewDenunciaScreenState extends State<NewDenunciaScreen> {
     );
   }
 
-  _labelSection(text) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 16),
-      color: Theme.of(context).primaryColor,
-      padding: EdgeInsets.all(8),
-      child: Text(text, style: TextStyle(color: Colors.white)),
+  _field({@required String fieldName, ValueChanged<String> onChanged}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 13),
+      child: CustomTextFormField(
+        textCapitalization: TextCapitalization.words,
+        fieldName: fieldName,
+        onChanged: onChanged,
+      ),
     );
   }
 
-  _field({@required String fieldName, ValueChanged<String> onChanged}) {
-    return CustomTextFormField(
-      textCapitalization: TextCapitalization.words,
-      fieldName: fieldName,
-      onChanged: onChanged,
+  _categoryField({@required ValueChanged<String> onChanged}) {
+    return Observer(
+      builder: (_) {
+        return Container(
+          margin: const EdgeInsets.only(left: 13, right: 13, bottom: 27),
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+          decoration: BoxDecoration(
+              border: Border.all(width: 1, color: Colors.grey),
+              borderRadius: BorderRadius.circular(4)),
+          child: DropdownButton(
+            isExpanded: true,
+            underline: Container(),
+            value: _newDenunciaController.denuncia.event,
+            items: <DropdownMenuItem<String>>[
+              DropdownMenuItem(
+                child: Text("Fila"),
+                value: "Fila",
+              ),
+              DropdownMenuItem(
+                child: Text("Reunião"),
+                value: "Reunião",
+              ),
+            ],
+            onChanged: onChanged,
+            hint: Text("Categoria"),
+          ),
+        );
+      },
     );
   }
 
@@ -107,6 +136,7 @@ class _NewDenunciaScreenState extends State<NewDenunciaScreen> {
       builder: (_) {
         DateTime selectedDate = _newDenunciaController.denuncia.dateTime;
         return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 13),
           padding: EdgeInsets.only(top: 5, bottom: 5, left: 12, right: 5),
           child: Row(
             children: <Widget>[
@@ -114,7 +144,7 @@ class _NewDenunciaScreenState extends State<NewDenunciaScreen> {
                 child: Text(
                   selectedDate == null
                       ? "Data"
-                      : "${selectedDate.day.toString().padLeft(2, "0")}/${selectedDate.month.toString().padLeft(2, "0")}/${selectedDate.year}",
+                      : "${parseDate(selectedDate)} - ${parseHorary(selectedDate)}",
                   style: TextStyle(
                       color: selectedDate == null
                           ? Colors.grey[700]
@@ -168,46 +198,49 @@ class _NewDenunciaScreenState extends State<NewDenunciaScreen> {
 
   _imagensField() {
     double radius = ((MediaQuery.of(context).size.width - 82) / 8);
-    return Wrap(
-      alignment: WrapAlignment.start,
-      direction: Axis.horizontal,
-      runSpacing: 14,
-      spacing: 14,
-      children: images.map<Widget>((file) {
-        return Stack(
-          children: <Widget>[
-            Avatar(
-              image: FileImage(file),
-              radius: radius,
-              isRemoveble: true,
-              onRemovePressed: () {
-                images.remove(file);
-                setState(() {});
-              },
-            ),
-          ],
-        );
-      }).toList()
-        ..add(Material(
-          color: Theme.of(context).primaryColor,
-          borderRadius: BorderRadius.circular(radius),
-          child: InkWell(
-            splashFactory: InkRipple.splashFactory,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 6.0),
+      child: Wrap(
+        alignment: WrapAlignment.start,
+        direction: Axis.horizontal,
+        runSpacing: 14,
+        spacing: 14,
+        children: images.map<Widget>((file) {
+          return Stack(
+            children: <Widget>[
+              Avatar(
+                image: FileImage(file),
+                radius: radius,
+                isRemoveble: true,
+                onRemovePressed: () {
+                  images.remove(file);
+                  setState(() {});
+                },
+              ),
+            ],
+          );
+        }).toList()
+          ..add(Material(
+            color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.circular(radius),
-            onTap: () {
-              _addNewImage();
-            },
-            child: CircleAvatar(
-              radius: radius,
-              backgroundColor: Colors.transparent,
-              child: Icon(
-                Icons.file_upload,
-                size: radius,
-                color: Colors.white,
+            child: InkWell(
+              splashFactory: InkRipple.splashFactory,
+              borderRadius: BorderRadius.circular(radius),
+              onTap: () {
+                _addNewImage();
+              },
+              child: CircleAvatar(
+                radius: radius,
+                backgroundColor: Colors.transparent,
+                child: Icon(
+                  Icons.file_upload,
+                  size: radius,
+                  color: Colors.white,
+                ),
               ),
             ),
-          ),
-        )),
+          )),
+      ),
     );
   }
 
@@ -266,10 +299,7 @@ class _NewDenunciaScreenState extends State<NewDenunciaScreen> {
         return _newDenunciaController.stateSave == RequestState.LOADING
             ? Center(child: CircularProgressIndicator())
             : RaisedButton(
-                    color: Theme.of(context).primaryColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(60)),
-                    child: Text("FAZER DENÚNCIA"),
+                    child: Text("ADICIONAR DENÚNCIA"),
                     onPressed: _newDenunciaController.isValid
                         ? () async {
                             await _newDenunciaController.saveDenuncia(
