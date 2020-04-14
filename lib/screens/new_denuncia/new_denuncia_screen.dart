@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:covid_alert/shared/components/app_bar.dart';
 import 'package:covid_alert/shared/components/avatar.dart';
 import 'package:covid_alert/shared/components/custom_text_form_field.dart';
 import 'package:covid_alert/shared/enums/request_state_enum.dart';
@@ -27,9 +28,12 @@ class _NewDenunciaScreenState extends State<NewDenunciaScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Fazer uma nova denúncia"),
-      ),
+      appBar: appBar(
+          title: "Fazer uma nova denúncia",
+          leading: Leading.BACK,
+          onLeadingPress: () {
+            Navigator.pop(context);
+          }),
       body: Container(
         height: MediaQuery.of(context).size.height,
         child: SingleChildScrollView(
