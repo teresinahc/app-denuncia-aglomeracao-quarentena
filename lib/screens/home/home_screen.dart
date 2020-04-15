@@ -1,4 +1,5 @@
 import 'package:covid_alert/screens/home/components/denuncia_tile.dart';
+import 'package:covid_alert/screens/home/components/drawer.dart';
 import 'package:covid_alert/screens/home/components/screen_with_time_indicator.dart';
 import 'package:covid_alert/screens/home/controllers/home_controller.dart';
 import 'package:covid_alert/screens/new_denuncia/new_denuncia_screen.dart';
@@ -64,7 +65,10 @@ class _HomeScreenState extends State<HomeScreen> {
           onLeadingPress: () {
             _key.currentState.openDrawer();
           }),
-      drawer: Drawer(),
+      drawer: CustomDrawer(
+        isHomeScreen: true,
+        isSobreScreen: false,
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           Navigator.push(context,
