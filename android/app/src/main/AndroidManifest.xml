@@ -10,6 +10,7 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="Covid-19 Alert"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.mapbox.token" android:value="pk.eyJ1IjoibWV4OTc4IiwiYSI6ImNrOTBkaTd0ZzAwbnEzc3VtdnkzeWF1cW4ifQ._dCNcurn5jIK7jQcJY1gWw" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
