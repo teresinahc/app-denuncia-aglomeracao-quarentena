@@ -1,3 +1,4 @@
+import 'package:covid_alert/screens/splash/splash_screen.dart';
 import 'package:covid_alert/shared/service/repository.dart';
 import 'package:covid_alert/shared/themes/theme_default.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class _MyAppState extends State<MyApp> {
         supportedLocales: [
           const Locale('pt', "BR"),
         ],
-        home: HomeScreen(),
+        home: SplahScreen(),
         theme: themeDefault(),
       ),
     );
