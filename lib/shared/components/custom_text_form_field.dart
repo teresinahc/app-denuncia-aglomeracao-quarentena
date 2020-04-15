@@ -84,7 +84,7 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(bottom: 8.0),
+        padding: const EdgeInsets.only(bottom: 27.0),
         child: TextFormField(
           onSaved: this.onSaved,
           autovalidate: this.autovalidate,

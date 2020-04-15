@@ -6,13 +6,13 @@ class ScreenDateIndicator extends StatelessWidget {
   final DateTime headTime;
   final List<Widget> items;
   final double indicatorRadius;
-  final double _spaceIndicator = 5.0;
+  final double _spaceIndicator = 6.0;
 
   ScreenDateIndicator(
       {this.hasNext: false,
       @required this.headTime,
       @required this.items,
-      this.indicatorRadius: 20.0});
+      this.indicatorRadius: 30.0});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class ScreenDateIndicator extends StatelessWidget {
       child: hasNext
           ? Container(
               width: 1,
-              color: Colors.grey,
+              color: Color(0xFFC2C2C2),
             )
           : Container(),
     );
@@ -63,7 +63,7 @@ class ScreenDateIndicator extends StatelessWidget {
               // width: double.infinity,
               // color: Colors.red,
               width: MediaQuery.of(context).size.width - 32,
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.all(indicatorRadius),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: items,

@@ -39,7 +39,7 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.thc.covid_alert"
-        minSdkVersion 16
+        minSdkVersion 20
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -63,6 +63,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.google.firebase:firebase-analytics:17.2.2'
     implementation 'com.android.support:multidex:2.0.1'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin

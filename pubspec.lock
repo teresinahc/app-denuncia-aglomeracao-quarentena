@@ -249,6 +249,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.6"
+  flutter_svg:
+    dependency: "direct main"
+    description:
+      name: flutter_svg
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.17.4"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -371,6 +378,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.11.4"
+  mapbox_gl:
+    dependency: "direct main"
+    description:
+      name: mapbox_gl
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.5"
   matcher:
     dependency: transitive
     description:
@@ -434,6 +448,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.6.4"
+<<<<<<< HEAD
   path_provider:
     dependency: transitive
     description:
@@ -455,6 +470,22 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+=======
+  path_drawing:
+    dependency: transitive
+    description:
+      name: path_drawing
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.1"
+  path_parsing:
+    dependency: transitive
+    description:
+      name: path_parsing
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.4"
+>>>>>>> cad988bd6b5ef20e589a42624cdf8767ee0d168b
   pedantic:
     dependency: transitive
     description:
@@ -468,7 +499,11 @@ packages:
       name: petitparser
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "2.4.0"
+=======
+    version: "3.0.2"
+>>>>>>> cad988bd6b5ef20e589a42624cdf8767ee0d168b
   photo_view:
     dependency: "direct main"
     description:
@@ -634,7 +669,11 @@ packages:
       name: xml
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "3.5.0"
+=======
+    version: "3.7.0"
+>>>>>>> cad988bd6b5ef20e589a42624cdf8767ee0d168b
   yaml:
     dependency: transitive
     description:
