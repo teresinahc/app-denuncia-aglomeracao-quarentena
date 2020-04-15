@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:covid_alert/shared/components/app_bar.dart';
 import 'package:covid_alert/shared/components/avatar.dart';
 import 'package:covid_alert/shared/components/custom_text_form_field.dart';
+import 'package:covid_alert/shared/components/screen_with_background.dart';
 import 'package:covid_alert/shared/enums/request_state_enum.dart';
 import 'package:covid_alert/shared/utils/parse_date.dart';
 import 'package:covid_alert/shared/utils/parse_horary.dart';
@@ -36,45 +37,47 @@ class _NewDenunciaScreenState extends State<NewDenunciaScreen> {
           onLeadingPress: () {
             Navigator.pop(context);
           }),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding:
-                const EdgeInsets.only(top: 42, left: 17, right: 17, bottom: 29),
-            child: Form(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  _field(
-                      fieldName: "Título (opcional)",
-                      onChanged: (str) {
-                        _newDenunciaController.setTitle(str);
-                      }),
-                  _field(
-                      fieldName: "Descrição (opcional)",
-                      onChanged: (str) {
-                        _newDenunciaController.setDescription(str);
-                      }),
-                  _categoryField(onChanged: (value) {
-                    _newDenunciaController.setEvent(value);
-                  }),
-                  _field(
-                      fieldName: "Endereço",
-                      onChanged: (str) {
-                        _newDenunciaController.setAddress(str);
-                      }),
-                  _dateField(),
-                  _buildDivider(h: 23),
-                  Divider(
-                    height: 1,
-                    color: Color(0xFFD9D9D9),
-                  ),
-                  _buildDivider(h: 28),
-                  _imagensField(),
-                  _buildDivider(h: 32),
-                  _button(),
-                ],
+      body: ScreenWithBackground(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  top: 42, left: 17, right: 17, bottom: 29),
+              child: Form(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    _field(
+                        fieldName: "Título (opcional)",
+                        onChanged: (str) {
+                          _newDenunciaController.setTitle(str);
+                        }),
+                    _field(
+                        fieldName: "Descrição (opcional)",
+                        onChanged: (str) {
+                          _newDenunciaController.setDescription(str);
+                        }),
+                    _categoryField(onChanged: (value) {
+                      _newDenunciaController.setEvent(value);
+                    }),
+                    _field(
+                        fieldName: "Endereço",
+                        onChanged: (str) {
+                          _newDenunciaController.setAddress(str);
+                        }),
+                    _dateField(),
+                    _buildDivider(h: 23),
+                    Divider(
+                      height: 1,
+                      color: Color(0xFFD9D9D9),
+                    ),
+                    _buildDivider(h: 28),
+                    _imagensField(),
+                    _buildDivider(h: 32),
+                    _button(),
+                  ],
+                ),
               ),
             ),
           ),
