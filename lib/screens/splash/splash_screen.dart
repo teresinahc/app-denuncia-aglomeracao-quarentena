@@ -1,6 +1,5 @@
 import 'package:covid_alert/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SplahScreen extends StatefulWidget {
@@ -74,11 +73,11 @@ class _SplahScreenState extends State<SplahScreen> {
               alignment: Alignment.center,
               children: <Widget>[
                 Image.asset(
-                  'assets/images/home_back.png',
+                  'lib/shared/assets/home_back.png',
                   height: 0.38 * MediaQuery.of(context).size.width,
                 ),
                 Image.asset(
-                  'assets/images/home.png',
+                  'lib/shared/assets/home.png',
                   width: 0.38 * MediaQuery.of(context).size.width,
                 ),
               ],

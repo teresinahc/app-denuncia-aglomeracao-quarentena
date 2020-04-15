@@ -23,8 +23,6 @@ class _DenunciaDetailsState extends State<DenunciaDetails> {
 
   void _onMapCreated(MapboxMapController controller) {
     mapController = controller;
-    controller
-        .addSymbol(SymbolOptions(iconImage: "lib/shared/assets/location.png"));
   }
 
   @override
