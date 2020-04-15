@@ -4,8 +4,10 @@ import 'package:covid_alert/screens/home/components/screen_with_time_indicator.d
 import 'package:covid_alert/screens/home/controllers/home_controller.dart';
 import 'package:covid_alert/screens/new_denuncia/new_denuncia_screen.dart';
 import 'package:covid_alert/shared/components/app_bar.dart';
+import 'package:covid_alert/shared/components/screen_with_background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 
@@ -78,60 +80,62 @@ class _HomeScreenState extends State<HomeScreen> {
         tooltip: "Fazer denúncia",
         backgroundColor: Theme.of(context).primaryColor,
       ),
-      body: Observer(
-        builder: (_) {
-          if (_homeController.denuncias == null) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+      body: ScreenWithBackground(
+        child: Observer(
+          builder: (_) {
+            if (_homeController.denuncias == null) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
 
-          return _homeController.denunciasAgrouped != null &&
-                  _homeController.denunciasAgrouped.isNotEmpty
-              ? ListView(
-                  padding: EdgeInsets.all(16),
-                  children: _homeController.denunciasAgrouped.keys
-                      .map<Widget>((key) => ScreenDateIndicator(
-                          hasNext: key !=
-                              _homeController.denunciasAgrouped.keys.last,
-                          headTime: key,
-                          items: _homeController.denunciasAgrouped[key]
-                              .map<Widget>((denuncia) =>
-                                  DenunciaTile(denuncia: denuncia))
-                              .toList()))
-                      .toList(),
-                )
-              : Container(
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: <Widget>[
-                      Text(
-                        "Ainda não existe nenhuma denúncia registrada.",
-                        style: TextStyle(
-                            fontStyle: FontStyle.italic,
-                            color: Color.fromRGBO(0, 0, 0, 0.56)),
-                      ),
-                      Positioned(
-                        bottom: 0.3 * MediaQuery.of(context).size.height,
-                        child: Container(
-                          child: Row(
-                            children: <Widget>[
-                              Text(
-                                "Aperte o botão abaixo para fazer a primeira denúncia.",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Color.fromRGBO(0, 0, 0, 0.88)),
-                              ),
-                            ],
+            return _homeController.denunciasAgrouped != null &&
+                    _homeController.denunciasAgrouped.isNotEmpty
+                ? ListView(
+                    padding: EdgeInsets.all(16),
+                    children: _homeController.denunciasAgrouped.keys
+                        .map<Widget>((key) => ScreenDateIndicator(
+                            hasNext: key !=
+                                _homeController.denunciasAgrouped.keys.last,
+                            headTime: key,
+                            items: _homeController.denunciasAgrouped[key]
+                                .map<Widget>((denuncia) =>
+                                    DenunciaTile(denuncia: denuncia))
+                                .toList()))
+                        .toList(),
+                  )
+                : Container(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: <Widget>[
+                        Text(
+                          "Ainda não existe nenhuma denúncia registrada.",
+                          style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              color: Color.fromRGBO(0, 0, 0, 0.56)),
+                        ),
+                        Positioned(
+                          bottom: 0.3 * MediaQuery.of(context).size.height,
+                          child: Container(
+                            child: Row(
+                              children: <Widget>[
+                                Text(
+                                  "Aperte o botão abaixo para fazer a primeira denúncia.",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(0, 0, 0, 0.88)),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                );
-        },
+                      ],
+                    ),
+                  );
+          },
+        ),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:covid_alert/screens/home/components/drawer.dart';
 import 'package:covid_alert/shared/components/app_bar.dart';
+import 'package:covid_alert/shared/components/screen_with_background.dart';
 import 'package:flutter/material.dart';
 
 class SobreScreen extends StatefulWidget {
@@ -24,25 +25,27 @@ class _SobreScreenState extends State<SobreScreen> {
           onLeadingPress: () {
             _key.currentState.openDrawer();
           }),
-      body: Padding(
-        padding: const EdgeInsets.all(28.0),
-        child: Column(
-          children: [
-            _title("Sobre o app"),
-            _buildDivider(),
-            _content(
-                "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet"),
-            _buildDivider(),
-            _title("Quem somos"),
-            _buildDivider(),
-            _content(
-                "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet"),
-            _buildDivider(),
-            _title("Contribuidores"),
-            _buildDivider(),
-            _content(
-                "Ana Paula Mendes - Idealizadora\nSampaio Leal - Front/UI\nMax Lima - Mobile/Back"),
-          ],
+      body: ScreenWithBackground(
+        child: Padding(
+          padding: const EdgeInsets.all(28.0),
+          child: Column(
+            children: [
+              _title("Sobre o app"),
+              _buildDivider(),
+              _content(
+                  "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet"),
+              _buildDivider(),
+              _title("Quem somos"),
+              _buildDivider(),
+              _content(
+                  "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet"),
+              _buildDivider(),
+              _title("Contribuidores"),
+              _buildDivider(),
+              _content(
+                  "Ana Paula Mendes - Idealizadora\nSampaio Leal - Front/UI\nMax Lima - Mobile/Back"),
+            ],
+          ),
         ),
       ),
     );

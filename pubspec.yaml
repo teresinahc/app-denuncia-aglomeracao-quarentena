@@ -64,6 +64,8 @@ flutter:
     - lib/shared/assets/splash.svg
     - lib/shared/assets/Rectangle.svg
     - lib/shared/assets/Subtract.svg
+    - lib/shared/assets/Vector.svg
+    - lib/shared/assets/Vector.png
     - lib/shared/assets/192x192.svg
     - lib/shared/assets/512x512.png
 

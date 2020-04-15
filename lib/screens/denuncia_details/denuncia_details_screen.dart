@@ -1,5 +1,6 @@
 import 'package:covid_alert/shared/components/app_bar.dart';
 import 'package:covid_alert/shared/components/avatar.dart';
+import 'package:covid_alert/shared/components/screen_with_background.dart';
 import 'package:covid_alert/shared/models/denuncia.dart';
 import 'package:covid_alert/shared/utils/parse_date.dart';
 import 'package:covid_alert/shared/utils/parse_horary.dart';
@@ -41,49 +42,53 @@ class _DenunciaDetailsState extends State<DenunciaDetails> {
           onLeadingPress: () {
             Navigator.pop(context);
           }),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 28.0, vertical: 29),
-            child: Form(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Text(
-                    (widget.denuncia.title != null &&
-                            widget.denuncia.title.isNotEmpty)
-                        ? widget.denuncia.title
-                        : "Sem título",
-                    style: TextStyle(fontSize: 29, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                  _buildDivider(h: 19),
-                  Text(
-                    (widget.denuncia.description != null &&
-                            widget.denuncia.description.isNotEmpty)
-                        ? widget.denuncia.description
-                        : "Sem descrição",
-                    style: TextStyle(fontSize: 20, color: Color(0xFF3E3E3E)),
-                    textAlign: TextAlign.center,
-                  ),
-                  _buildDivider(h: 19),
-                  _imagensField(),
-                  _buildDivider(h: 22),
-                  renderField(
-                      title: "Endereço", content: widget.denuncia.address),
-                  renderField(
-                      title: "Categoria",
-                      content: widget.denuncia.event,
-                      colorContent: Theme.of(context).primaryColor,
-                      contentIsBold: true),
-                  renderField(
-                      title: "Horário",
-                      content:
-                          "${parseDate(widget.denuncia.dateTime)} - ${parseHorary(widget.denuncia.dateTime)}"),
-                  _buildDivider(h: 26),
-                  _mapField()
-                ],
+      body: ScreenWithBackground(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 28.0, vertical: 29),
+              child: Form(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Text(
+                      (widget.denuncia.title != null &&
+                              widget.denuncia.title.isNotEmpty)
+                          ? widget.denuncia.title
+                          : "Sem título",
+                      style:
+                          TextStyle(fontSize: 29, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    _buildDivider(h: 19),
+                    Text(
+                      (widget.denuncia.description != null &&
+                              widget.denuncia.description.isNotEmpty)
+                          ? widget.denuncia.description
+                          : "Sem descrição",
+                      style: TextStyle(fontSize: 20, color: Color(0xFF3E3E3E)),
+                      textAlign: TextAlign.center,
+                    ),
+                    _buildDivider(h: 19),
+                    _imagensField(),
+                    _buildDivider(h: 22),
+                    renderField(
+                        title: "Endereço", content: widget.denuncia.address),
+                    renderField(
+                        title: "Categoria",
+                        content: widget.denuncia.event,
+                        colorContent: Theme.of(context).primaryColor,
+                        contentIsBold: true),
+                    renderField(
+                        title: "Horário",
+                        content:
+                            "${parseDate(widget.denuncia.dateTime)} - ${parseHorary(widget.denuncia.dateTime)}"),
+                    _buildDivider(h: 26),
+                    _mapField()
+                  ],
+                ),
               ),
             ),
           ),
