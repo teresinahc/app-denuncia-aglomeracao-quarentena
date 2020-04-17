@@ -2,6 +2,7 @@ import 'package:covid_alert/screens/home/home_screen.dart';
 import 'package:covid_alert/screens/initial_information/initial_information_screen.dart';
 import 'package:covid_alert/shared/components/screen_with_background.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,7 +19,6 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(Duration(seconds: 3), () async {
       SharedPreferences _prefs = await SharedPreferences.getInstance();
       bool firstOpen = _prefs.getBool("first_open") ?? true;
-      firstOpen = true;
       Navigator.pushReplacement(
           context,
           PageRouteBuilder(
@@ -30,6 +30,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark));
+
     ScreenUtil.init(context, width: 411, height: 731, allowFontScaling: false);
     return Scaffold(
       body: ScreenWithBackground(

@@ -115,6 +115,8 @@ class _NewDenunciaScreenState extends State<NewDenunciaScreen> {
           child: DropdownButton(
             isExpanded: true,
             underline: Container(),
+            style:
+                TextStyle(color: Theme.of(context).primaryColor, fontSize: 16),
             value: _newDenunciaController.denuncia.event,
             items: <DropdownMenuItem<String>>[
               DropdownMenuItem(
@@ -200,14 +202,14 @@ class _NewDenunciaScreenState extends State<NewDenunciaScreen> {
   }
 
   _imagensField() {
-    double radius = ((MediaQuery.of(context).size.width - 82) / 8);
+    double radius = MediaQuery.of(context).size.width * 0.084;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 6.0),
       child: Wrap(
         alignment: WrapAlignment.start,
         direction: Axis.horizontal,
-        runSpacing: 14,
-        spacing: 14,
+        runSpacing: MediaQuery.of(context).size.width * 0.084,
+        spacing: MediaQuery.of(context).size.width * 0.065,
         children: images.map<Widget>((file) {
           return Stack(
             children: <Widget>[

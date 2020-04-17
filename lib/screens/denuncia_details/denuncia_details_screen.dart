@@ -109,7 +109,7 @@ class _DenunciaDetailsState extends State<DenunciaDetails> {
   }
 
   _imagensField() {
-    double radius = ((MediaQuery.of(context).size.width - 82) / 8);
+    double radius = MediaQuery.of(context).size.width * 0.084;
     return Container(
       decoration: BoxDecoration(
           color: Color(0xFFF2F2F2), borderRadius: BorderRadius.circular(10)),
@@ -127,8 +127,8 @@ class _DenunciaDetailsState extends State<DenunciaDetails> {
           : Wrap(
               alignment: WrapAlignment.start,
               direction: Axis.horizontal,
-              runSpacing: 14,
-              spacing: 14,
+              runSpacing: MediaQuery.of(context).size.width * 0.036,
+              spacing: MediaQuery.of(context).size.width * 0.036,
               children: widget.denuncia.imagesUrls.map<Widget>((url) {
                 return Stack(
                   children: <Widget>[

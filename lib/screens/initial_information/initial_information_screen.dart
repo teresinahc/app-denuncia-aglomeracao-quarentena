@@ -1,7 +1,6 @@
 import 'package:covid_alert/screens/home/home_screen.dart';
 import 'package:covid_alert/shared/components/screen_with_background.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:page_view_indicator/page_view_indicator.dart';
@@ -27,10 +26,6 @@ class _InitialInformationScreenState extends State<InitialInformationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark));
-
     return Scaffold(
       backgroundColor: Color(0xFFEF3535),
       bottomNavigationBar: Container(
