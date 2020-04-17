@@ -2,6 +2,7 @@ import 'package:covid_alert/screens/denuncia_details/denuncia_details_screen.dar
 import 'package:covid_alert/shared/models/denuncia.dart';
 import 'package:covid_alert/shared/utils/parse_horary.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DenunciaTile extends StatelessWidget {
   final Denuncia denuncia;
@@ -11,7 +12,7 @@ class DenunciaTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 17.0),
+      padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(17)),
       child: Row(
         children: <Widget>[
           Text(
@@ -19,10 +20,10 @@ class DenunciaTile extends StatelessWidget {
             style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontWeight: FontWeight.w600,
-                fontSize: 8),
+                fontSize: ScreenUtil().setSp(8)),
           ),
           SizedBox(
-            width: 5,
+            width: ScreenUtil().setWidth(5),
           ),
           Expanded(
             child: Container(
@@ -48,7 +49,7 @@ class DenunciaTile extends StatelessWidget {
                         ));
                   },
                   child: Container(
-                    padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(ScreenUtil().setSp(16)),
                     child: Row(
                       children: <Widget>[
                         Expanded(
@@ -91,14 +92,15 @@ class DenunciaTile extends StatelessWidget {
       children: <Widget>[
         Text(
           "$title: ",
-          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+          style: TextStyle(
+              fontWeight: FontWeight.w600, fontSize: ScreenUtil().setSp(16)),
         ),
         Expanded(
             child: Text(
           content,
           style: TextStyle(
               color: colorContent,
-              fontSize: 13,
+              fontSize: ScreenUtil().setSp(16),
               fontWeight: contentIsBold ? FontWeight.bold : null),
         )),
       ],

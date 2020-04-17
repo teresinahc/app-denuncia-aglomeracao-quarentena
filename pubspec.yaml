@@ -34,6 +34,7 @@ dependencies:
   google_fonts: 0.4.3
   mapbox_gl: ^0.0.5
   flutter_svg: ^0.17.4
+  flutter_screenutil: ^1.1.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -67,7 +68,11 @@ flutter:
     - lib/shared/assets/Vector.svg
     - lib/shared/assets/Vector.png
     - lib/shared/assets/192x192.svg
+    - lib/shared/assets/image.svg
     - lib/shared/assets/512x512.png
+    - lib/shared/assets/background_splash.svg
+    - lib/shared/assets/background_splash.png
+    - lib/shared/assets/512x512_croped.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

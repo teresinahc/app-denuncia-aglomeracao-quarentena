@@ -5,6 +5,7 @@ import 'package:covid_alert/shared/models/denuncia.dart';
 import 'package:covid_alert/shared/utils/parse_date.dart';
 import 'package:covid_alert/shared/utils/parse_horary.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 
 import 'components/image_view.dart';
@@ -47,8 +48,9 @@ class _DenunciaDetailsState extends State<DenunciaDetails> {
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 28.0, vertical: 29),
+              padding: EdgeInsets.symmetric(
+                  horizontal: ScreenUtil().setWidth(28),
+                  vertical: ScreenUtil().setHeight(29)),
               child: Form(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -58,22 +60,25 @@ class _DenunciaDetailsState extends State<DenunciaDetails> {
                               widget.denuncia.title.isNotEmpty)
                           ? widget.denuncia.title
                           : "Sem título",
-                      style:
-                          TextStyle(fontSize: 29, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: ScreenUtil().setSp(29),
+                          fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
-                    _buildDivider(h: 19),
+                    _buildDivider(h: ScreenUtil().setHeight(19)),
                     Text(
                       (widget.denuncia.description != null &&
                               widget.denuncia.description.isNotEmpty)
                           ? widget.denuncia.description
                           : "Sem descrição",
-                      style: TextStyle(fontSize: 20, color: Color(0xFF3E3E3E)),
+                      style: TextStyle(
+                          fontSize: ScreenUtil().setSp(20),
+                          color: Color(0xFF3E3E3E)),
                       textAlign: TextAlign.center,
                     ),
-                    _buildDivider(h: 19),
+                    _buildDivider(h: ScreenUtil().setHeight(19)),
                     _imagensField(),
-                    _buildDivider(h: 22),
+                    _buildDivider(h: ScreenUtil().setHeight(22)),
                     renderField(
                         title: "Endereço", content: widget.denuncia.address),
                     renderField(
@@ -105,23 +110,40 @@ class _DenunciaDetailsState extends State<DenunciaDetails> {
 
   _imagensField() {
     double radius = ((MediaQuery.of(context).size.width - 82) / 8);
-    return Wrap(
-      alignment: WrapAlignment.start,
-      direction: Axis.horizontal,
-      runSpacing: 14,
-      spacing: 14,
-      children: widget.denuncia.imagesUrls.map<Widget>((url) {
-        return Stack(
-          children: <Widget>[
-            Avatar(
-              image: NetworkImage(url),
-              radius: radius,
-              onTap: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ImageView(url: url))),
+    return Container(
+      decoration: BoxDecoration(
+          color: Color(0xFFF2F2F2), borderRadius: BorderRadius.circular(10)),
+      padding: EdgeInsets.symmetric(
+          horizontal: ScreenUtil().setWidth(13),
+          vertical: ScreenUtil().setHeight(33)),
+      child: widget.denuncia.imagesUrls.isEmpty
+          ? Center(
+              child: Text(
+              "Sem imagens",
+              style: TextStyle(
+                  fontStyle: FontStyle.italic,
+                  color: Color.fromRGBO(0, 0, 0, 0.56)),
+            ))
+          : Wrap(
+              alignment: WrapAlignment.start,
+              direction: Axis.horizontal,
+              runSpacing: 14,
+              spacing: 14,
+              children: widget.denuncia.imagesUrls.map<Widget>((url) {
+                return Stack(
+                  children: <Widget>[
+                    Avatar(
+                      image: NetworkImage(url),
+                      radius: radius,
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ImageView(url: url))),
+                    ),
+                  ],
+                );
+              }).toList(),
             ),
-          ],
-        );
-      }).toList(),
     );
   }
 
@@ -135,14 +157,16 @@ class _DenunciaDetailsState extends State<DenunciaDetails> {
       children: <Widget>[
         Text(
           "$title: ",
-          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+          style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: ScreenUtil().setHeight(16)),
         ),
         Expanded(
             child: Text(
           content,
           style: TextStyle(
               color: colorContent,
-              fontSize: 13,
+              fontSize: ScreenUtil().setHeight(16),
               fontWeight: contentIsBold ? FontWeight.bold : null),
         )),
       ],
@@ -153,21 +177,25 @@ class _DenunciaDetailsState extends State<DenunciaDetails> {
     return Container(
         height: 250,
         decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Color.fromRGBO(0, 0, 0, 0.25),
-                offset: Offset(0.0, 4.0),
-                blurRadius: 4.0,
-              )
-            ]),
-        child: MapboxMap(
-          onMapCreated: _onMapCreated,
-          myLocationRenderMode: MyLocationRenderMode.COMPASS,
-          initialCameraPosition:
-              CameraPosition(target: LatLng(51.5, -0.09), zoom: 15),
-          styleString: "mapbox://styles/mex978/ck90jsj9k0ak61iqp0fd92pon",
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Color.fromRGBO(0, 0, 0, 0.25),
+              offset: Offset(0.0, 4.0),
+              blurRadius: 4.0,
+            ),
+          ],
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: MapboxMap(
+            onMapCreated: _onMapCreated,
+            myLocationRenderMode: MyLocationRenderMode.COMPASS,
+            initialCameraPosition:
+                CameraPosition(target: LatLng(51.5, -0.09), zoom: 15),
+            styleString: "mapbox://styles/mex978/ck90jsj9k0ak61iqp0fd92pon",
+          ),
         ));
   }
 }

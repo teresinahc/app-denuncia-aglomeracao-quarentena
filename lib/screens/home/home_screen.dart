@@ -7,7 +7,7 @@ import 'package:covid_alert/shared/components/app_bar.dart';
 import 'package:covid_alert/shared/components/screen_with_background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 
@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
             return _homeController.denunciasAgrouped != null &&
                     _homeController.denunciasAgrouped.isNotEmpty
                 ? ListView(
-                    padding: EdgeInsets.all(16),
+                    padding: EdgeInsets.all(ScreenUtil().setSp(16)),
                     children: _homeController.denunciasAgrouped.keys
                         .map<Widget>((key) => ScreenDateIndicator(
                             hasNext: key !=

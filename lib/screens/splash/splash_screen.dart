@@ -1,107 +1,67 @@
-import 'package:covid_alert/screens/home/home_screen.dart';
+import 'package:covid_alert/screens/initial_information/initial_information_screen.dart';
+import 'package:covid_alert/shared/components/screen_with_background.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SplahScreen extends StatefulWidget {
+class SplashScreen extends StatefulWidget {
   @override
-  _SplahScreenState createState() => _SplahScreenState();
+  _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplahScreenState extends State<SplahScreen> {
+class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 3)).then((_) async {
-      await Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    Future.delayed(Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                InitialInformationScreen(),
+          ));
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, width: 411, height: 731, allowFontScaling: false);
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 32),
-        decoration: BoxDecoration(
-          color: Color(0xFFFFF5F5),
+      body: ScreenWithBackground(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.2),
+                  child: Image.asset("lib/shared/assets/512x512_croped.png"),
+                ),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Text(
+                "#FIQUEEMCASA",
+                style: GoogleFonts.mavenPro(
+                  fontSize: ScreenUtil().setSp(18),
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF515151),
+                ),
+              )
+            ],
+          ),
         ),
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              child: Container(
-                height: 0.07 * MediaQuery.of(context).size.height,
-                child: Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: <Widget>[
-                    Positioned(
-                      bottom: 0.025 * MediaQuery.of(context).size.height,
-                      child: Text(
-                        '#FIQUEEMCASA',
-                        style: GoogleFonts.mavenPro(
-                          fontSize: 42,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromRGBO(255, 0, 0, 0.02),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      top: 0.025 * MediaQuery.of(context).size.height,
-                      child: Text(
-                        '#FIQUEEMCASA',
-                        style: GoogleFonts.mavenPro(
-                          fontSize: 34,
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Text(
-              'A OMS (Organização Mundial de Saúde) declarou que o surto do novo coronavírus constitui uma Emergência de Saúde Pública de Importância Internacional.',
-              style: GoogleFonts.mavenPro(
-                fontSize: 22,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            Stack(
-              alignment: Alignment.center,
-              children: <Widget>[
-                Image.asset(
-                  'lib/shared/assets/home_back.png',
-                  height: 0.38 * MediaQuery.of(context).size.width,
-                ),
-                Image.asset(
-                  'lib/shared/assets/home.png',
-                  width: 0.38 * MediaQuery.of(context).size.width,
-                ),
-              ],
-            ),
-            Text(
-              'Ajude e denuncie aglomerações durante a quarentena devido ao COVID-19.',
-              style: GoogleFonts.mavenPro(
-                fontSize: 22,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            FloatingActionButton(
-              onPressed: () async {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()));
-              },
-              child: Icon(
-                Icons.arrow_forward_ios,
-                color: Colors.white,
-                size: 18,
-              ),
-            )
-          ],
-        ),
+        backgroundElements: [
+          Positioned(
+              top: 0,
+              child: Image.asset(
+                "lib/shared/assets/background_splash.png",
+                // color: Colors.red,
+              ))
+        ],
       ),
     );
   }

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'screens/home/controllers/home_controller.dart';
-import 'screens/home/home_screen.dart';
 import 'screens/new_denuncia/controllers/new_denuncia_controller.dart';
 
 void main() {
@@ -39,7 +38,7 @@ class _MyAppState extends State<MyApp> {
         supportedLocales: [
           const Locale('pt', "BR"),
         ],
-        home: SplahScreen(),
+        home: SplashScreen(),
         theme: themeDefault(),
       ),
     );
