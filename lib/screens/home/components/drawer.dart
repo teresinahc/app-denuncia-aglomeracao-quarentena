@@ -1,4 +1,3 @@
-import 'package:covid_alert/screens/home/home_screen.dart';
 import 'package:covid_alert/screens/sobre_screen/sobre_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

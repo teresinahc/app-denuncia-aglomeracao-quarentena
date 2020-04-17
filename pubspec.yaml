@@ -35,6 +35,8 @@ dependencies:
   mapbox_gl: ^0.0.5
   flutter_svg: ^0.17.4
   flutter_screenutil: ^1.1.0
+  shared_preferences: ^0.5.6+3
+  page_view_indicator: ^2.0.4
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -74,6 +76,12 @@ flutter:
     - lib/shared/assets/background_splash.png
     - lib/shared/assets/512x512_croped.png
 
+    - lib/shared/assets/corona_virus.svg
+    - lib/shared/assets/home.svg
+    - lib/shared/assets/initial_1.png
+    - lib/shared/assets/initial_2.png
+    - lib/shared/assets/initial_3.png
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
@@ -83,10 +91,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: PoetsenOne
+      fonts:
+        - asset: lib/shared/fonts/PoetsenOne-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

@@ -13,16 +13,17 @@ class ScreenWithBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
-        children: [
-      Positioned(
-        bottom: 0,
-        child: Image.asset(
-          "lib/shared/assets/Vector.png",
-          width: MediaQuery.of(context).size.width,
+      children: [
+        Positioned(
+          bottom: 0,
+          child: Image.asset(
+            "lib/shared/assets/Vector.png",
+            width: MediaQuery.of(context).size.width,
+          ),
         ),
-      ),
-    ]
-          ..add(child)
-          ..addAll(backgroundElements));
+      ]
+        ..addAll(backgroundElements)
+        ..add(child),
+    );
   }
 }
