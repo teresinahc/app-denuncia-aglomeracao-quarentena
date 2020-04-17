@@ -20,7 +20,7 @@ class DenunciaTile extends StatelessWidget {
             style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontWeight: FontWeight.w600,
-                fontSize: ScreenUtil().setSp(8)),
+                fontSize: ScreenUtil().setSp(10)),
           ),
           SizedBox(
             width: ScreenUtil().setWidth(5),
